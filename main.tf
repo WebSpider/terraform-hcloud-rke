@@ -60,6 +60,16 @@ resource "rke_cluster" "this" {
   }
 
   addons_include = var.addons_include
+
+  upgrade_strategy {
+    drain                        = true
+
+    drain_input {
+      force = true
+      delete_local_data  = true
+      ignore_daemon_sets = true
+    }
+  }
 }
 
 resource "local_file" "kube_cluster_yaml" {
